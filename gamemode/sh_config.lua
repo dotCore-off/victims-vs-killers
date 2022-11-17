@@ -102,6 +102,46 @@ PB.Config.GroupStaff = {
     "tstaff"
 }
 
+// List of buttons to show on the right side of help menu (F1)
+PB.Config.HelpButtons = {
+    [1] = {
+        Title = "DISCORD",
+        Text = "You can join our Discord if you need any help, have a bug report or a suggestion!",
+        Icon = Material("materials/botched/icons/discord_64.png"),
+        Callback = function() gui.OpenURL("https://discord.gg/") end,
+    },
+    [2] = {
+        Title = "WEBSITE",
+        Text = "Want to join our team or buy a pack? Click to do all of that, how wonderful!",
+        Icon = Material("materials/botched/icons/tutorial.png"),
+        Callback = function() gui.OpenURL("https://google.com") end,
+    },
+}
+
+// List of hints to show on the left side of help menu (F1)
+PB.Config.HelpHints = {
+    {
+        "Killer Gamemode",
+        "This gamemode consists of two teams, the Victims that must hide and survive until round end while Killers must chase and kill them. Killers can be recognized with red outlines around their model so if you see one, run!"
+    },
+    {
+        "Main Shortcuts",
+        "To get started, you can press [F2] to get Team Selection. While being alive, you can press [F3] to generate Taunts & earn easy coins! [F4] will get you to the main menu with ton of stuff such as your inventory, the shop or even the marketplace while [F6] will lead you to Accessory system." 
+    },
+    {
+        "Map Rotation",
+        "Map changes every 40 minutes or once 10 rounds passed. Feels too long? Use !rtv in chat and convince others to launch a mapvote!"
+    },
+    {
+        "Annoying Sounds",
+        "Tired of those filthy taunters? Type !taunts and disable future taunts, get your ears some rest :)"
+    },
+    {
+        "Personal Recommendation",
+        "Missing icons and loading screen or low performance? Head over to our Discord & learn how to optimize your game by switching to x86-x64 branch for example!"
+    }
+}
+
 // Functions that run on a beginning of a new round on specific maps
 PB.Config.MapsModification = {
     ["ttt_oldruins"] = {

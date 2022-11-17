@@ -107,13 +107,13 @@ function PANEL:Init()
         helpBackPanel:SetTall(helpBackPanel:GetTall() + helpPanel:GetTall() + (helpBackPanel:GetTall() > 0 and 10 or 0))
     end
 
-    CreateHelpPanel("DISCORD", "You can join our Discord if you need any help, have a bug report or a suggestion!", Material("materials/botched/icons/discord_64.png"), function()
-        gui.OpenURL("https://discord.gg/waurum")
-    end)
-
-    CreateHelpPanel("WEBSITE", "Want to join our team or buy a pack? Click to do all of that, how wonderful!", Material("materials/botched/icons/tutorial.png"), function()
-        gui.OpenURL("https://gmod.waurum.net/")
-    end)
+    if (!table.IsEmpty(PB.Config.HelpButtons)) then
+        for k,v in ipairs(PB.Config.HelpButtons) do 
+            local btn = PB.Config.HelpButtons[k]
+            if (table.IsEmpty(btn)) then continue end
+            CreateHelpPanel(btn.Title, btn.Text, btn.Icon, btn.Callback)
+        end
+    end
 
     local rightRemainingH = self.mainPanel.targetH-bottomButton:GetTall() - 25-25-25
     helpBackPanel:SetPos(25, 50 + (rightRemainingH / 2) - (helpBackPanel:GetTall() / 2))
@@ -129,40 +129,7 @@ function PANEL:Init()
     timer.Simple(0.2, function()
         if (!IsValid(self)) then return end
 
-        local ChatHints = {
-            {
-                "Killer Gamemode",
-                "This gamemode consists of two teams, the Victims that must hide and survive until round end while Killers must chase and kill them. Killers can be recognized with red outlines around their model so if you see one, run!"
-            },
-            {
-                "Main Shortcuts",
-                "To get started, you can press [F2] to get Team Selection. While being alive, you can press [F3] to generate Taunts & earn easy coins! [F4] will get you to the main menu with ton of stuff such as your inventory, the shop or even the marketplace while [F6] will lead you to Accessory system." 
-            },
-            {
-                "Style Yourself",
-                "Wanna look unique? Change your model bodygroups by pressing [J] button."
-            },
-            {
-                "Map Rotation",
-                "Map changes every 40 minutes or once 10 rounds passed. Feels too long? Use !rtv in chat and convince others to launch a mapvote!"
-            },
-            {
-                "Juicy Rewards",
-                "Empty wallet? Head over to the Rewards menu by pressing [M] button and refuel yourself!"
-            },
-            {
-                "Third Person",
-                "Playing in First person sucks? We all agree! So type !3p and get yourself a brand new view."
-            },
-            {
-                "Annoying Sounds",
-                "Tired of those filthy taunters? Type !taunts and disable future taunts, get your ears some rest :)"
-            },
-            {
-                "Personal Recommendation",
-                "Missing icons and loading screen or low performance? Head over to our Discord & learn how to optimize your game by switching to x86-x64 branch for example!"
-            }
-        }
+        local ChatHints = PB.Config.HelpHints or {}
 
         for k, v in ipairs(ChatHints) do
             surface.SetFont("MontserratMedium20")
