@@ -1,0 +1,9 @@
+name: GLuaLinter
+
+on: [push, pull_request]
+
+jobs:
+  Linting:
+    uses: FPtje/GLuaFixer/.github/workflows/glualint.yml@master
+    with:
+      config: "https://cfc.gg/configs/gluafixer/glualint.json"
