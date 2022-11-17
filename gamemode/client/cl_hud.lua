@@ -151,49 +151,6 @@ local function createDermaHUD(ply)
         draw.RoundedBox(20, 0, 0, w, h, BOTCHED.FUNC.GetTheme(1, 200))
         draw.SimpleText(timeString, "MontserratBold30", w / 2, h / 2 - 12, BOTCHED.FUNC.GetTheme(4, 200), TEXT_ALIGN_CENTER)
     end
-
-    /*
-    local coin = Material("logo/coin.png")
-    local gems = Material("logo/gem.png")
-    local coinCol = Color(250, 190, 70)
-    local gemsCol = Color(96, 173, 255)
-    PB_HUD.wallets = vgui.Create("DPanel", PB_HUD)
-    PB_HUD.wallets:SetSize(ScrW()*0.13, 105)
-    PB_HUD.wallets:SetPos(ScrW()-10-PB_HUD.wallets:GetWide(), ScrH()-10-PB_HUD.wallets:GetTall())
-    PB_HUD.wallets.Paint = function(self2, w, h)
-        draw.RoundedBox(8, 0, 0, w, h, BOTCHED.FUNC.GetTheme(1, 200))
-
-        local barHeight, barWidth = BOTCHED.FUNC.ScreenScale(15), w/2+30
-        local iconSize = 32
-        surface.SetMaterial(coin)
-        surface.SetDrawColor(255, 255, 255, 255)
-	    surface.DrawTexturedRect(10, 10, iconSize, iconSize)
-
-        local plyCoins = ply:GetCurrency(1)
-        draw.SimpleText(string.Comma(plyCoins) .. " Coins", "MontserratBold20", w/2, 17, coinCol, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-
-        surface.SetMaterial(gems)
-        surface.SetDrawColor(color_white)
-        surface.DrawTexturedRect(w-42, h-42, iconSize, iconSize)
-
-        draw.RoundedBox(barHeight/2, iconSize+25, 28, barWidth, barHeight, BOTCHED.FUNC.GetTheme(1))
-
-        BOTCHED.FUNC.DrawRoundedMask(barHeight/2, iconSize+25, 28, barWidth, barHeight, function()
-            surface.SetDrawColor(coinCol)
-            surface.DrawRect(iconSize+25, 28, barWidth*math.Clamp((plyCoins/ply:GetNWInt("MaxMoney")), 0, 1), barHeight)
-        end)
-        
-        local plyGems = ply:GetCurrency(2)
-        draw.SimpleText(string.Comma(plyGems) .. " Gems", "MontserratBold20", w/2, h-34, gemsCol, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-
-        draw.RoundedBox(barHeight/2, iconSize+10, h-24, barWidth, barHeight, BOTCHED.FUNC.GetTheme(1))
-
-        BOTCHED.FUNC.DrawRoundedMask(barHeight/2, iconSize+10, h-24, barWidth, barHeight, function()
-            surface.SetDrawColor(gemsCol)
-            surface.DrawRect(iconSize+10, h-24, barWidth*math.Clamp((plyGems/1000), 0, 1), barHeight)
-        end)
-    end
-    */
 end
 
 local function createRoundPanel(ply, event)
