@@ -1,7 +1,7 @@
 "pedobear"
 {
 	"base"		"fretta13"
-	"title"		"Pedobear"
+	"title"		"Victims vs Killers" // You can rename that to PB
 	"maps"		"^gm_|^gmod_|^phys_|^ph_|^ttt_|^md_|^mu_|^hs_|^zs_"
 	"menusystem"	"1"
 	
