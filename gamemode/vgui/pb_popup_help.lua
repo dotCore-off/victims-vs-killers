@@ -1,7 +1,7 @@
 local PANEL = {}
 
 function PANEL:Init()
-    self:SetHeader("Waurum - Help Center")
+    self:SetHeader("Help Center")
     self:SetDrawHeader(false)
     self:SetPopupWide(ScrW() * 0.4)
     self:SetExtraHeight(ScrH() * 0.4)
@@ -28,7 +28,7 @@ function PANEL:Init()
         draw.RoundedBoxEx(8, 0, 0, w, h, BOTCHED.FUNC.GetTheme(1), false, true, false, true)
         draw.RoundedBoxEx(8, 0, 0, w, h, BOTCHED.FUNC.GetTheme(2, 35), false, true, false, true)
 
-        draw.SimpleText("WAURUM - HELP MENU", "MontserratBold30", w / 2, 25, BOTCHED.FUNC.GetTheme(3), TEXT_ALIGN_CENTER, 0)
+        draw.SimpleText("HELP MENU", "MontserratBold30", w / 2, 25, BOTCHED.FUNC.GetTheme(3), TEXT_ALIGN_CENTER, 0)
     end
 
     self.leftPanel = vgui.Create( "DPanel", self.centerArea)
