@@ -30,6 +30,8 @@ if (PB.Config.TauntsEnabled) then
 elseif (PB.Config.SlidingEnabled) then
 	include("sh_sliding.lua")
 	AddCSLuaFile("sh_sliding.lua")
+elseif (PB.Config.EnableHelpMenu) then
+	resource.AddWorkshop("2551039439")
 end
 
 // Localize stuff we'll use or use often
