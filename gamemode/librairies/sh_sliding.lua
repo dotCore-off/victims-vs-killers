@@ -168,9 +168,6 @@ end
     One of the main func
 */
 hook.Add("SetupMove", "Check sliding", function(ply, mv, cmd)
-    // Unsure if that's needed lol
-    local w = ply:GetActiveWeapon()
-
     // Set velocity based on current speed
     if ply:GetNWFloat "SlidingPreserveWalkSpeed" > 0 then
         local v = GetPredictedVar(ply, "SlidingAbility_SlidingCurrentVelocity") or Vector()
@@ -184,14 +181,14 @@ hook.Add("SetupMove", "Check sliding", function(ply, mv, cmd)
         ply.SlidingAbility_SlidingStartTime = 0
         ply.SlidingAbility_IsSliding = false
     end
-    
+
     ply:SetNWFloat("SlidingPreserveWalkSpeed", -1)
 
     // End the sliding animation if player doesn't keep crouching
     if IsFirstTimePredicted() and not ply:Crouching() and ply.SlidingAbility_IsSliding then
         EndSliding(ply)
     end
-    
+
     // Actual calculation of movement
     local CT = CurTime()
     if (ply:Crouching() and ply.SlidingAbility_IsSliding) or (CLIENT and SlidingBacktrack[CT]) then
@@ -280,9 +277,7 @@ hook.Add("SetupMove", "Check sliding", function(ply, mv, cmd)
                     table.sort(keys, function(a, b) return a > b end)
                     for i = 1, #keys do
                         local v = keys[i]
-                        if i > 2 then
-                            SlidingBacktrack[v] = nil
-                        end
+                        if i > 2 then SlidingBacktrack[v] = nil end
                     end
                 else
                     SlidingBacktrack[CT] = {}
@@ -302,10 +297,10 @@ hook.Add("SetupMove", "Check sliding", function(ply, mv, cmd)
 
         return
     end
-    
+
     /*
         Initial checks to see if we can do it
-    */ 
+    */
     if ply.SlidingAbility_IsSliding then return end
     if not ply:OnGround() then return end
     if not ply:Crouching() then return end
@@ -382,7 +377,7 @@ hook.Add("UpdateAnimation", "Sliding aim pose parameters", function(ply, velocit
     local ppyaw = ply:LookupPoseParameter "aim_yaw"
     if pppitch >= 0 and ppyaw >= 0 then
         local b = ply:GetManipulateBoneAngles(0).roll
-        local p = ply:GetPoseParameter "aim_pitch" -- degrees in server, 0-1 in client
+        local p = ply:GetPoseParameter "aim_pitch" // degrees in server, 0-1 in client
         local y = ply:GetPoseParameter "aim_yaw"
         if CLIENT then
             p = Lerp(p, ply:GetPoseParameterRange(pppitch))
@@ -413,7 +408,7 @@ hook.Add("UpdateAnimation", "Sliding aim pose parameters", function(ply, velocit
         if EnhancedCameraTwo then l = EnhancedCameraTwo.entity end
         if not IsValid(l) then return end
     end
-    
+
     local dp = ply:GetPos() - (l.SlidingAbility_SlidingPreviousPosition or ply:GetPos())
     local dp2d = Vector(dp.x, dp.y)
     dp:Normalize()
