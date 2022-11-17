@@ -2,13 +2,17 @@
 include("sh_config.lua")
 include("shared.lua")
 include("client/cl_hud.lua")
-for k, v in pairs(file.Find("pb/gamemode/vgui/*.lua", "LUA")) do
-	include("vgui/" .. v)
-end
+
 
 // DO NOT TOUCH AS IT WOULD BREAK THE GAMEMODE
 PB = PB or {}
 PB.Config = PB.Config or {}
+
+if (PB.Config.EnableHelpMenu) then
+	for k, v in pairs(file.Find("pb/gamemode/vgui/*.lua", "LUA")) do
+		include("vgui/" .. v)
+	end
+end
 
 // Create a console variable to store Spectator status of a player
 CreateClientConVar("PB_Spectate", "0", true, true)
@@ -75,26 +79,28 @@ function GM:TeamChangeNotification(ply, oldteam, newteam)
 	end
 end
 
-// Function - Draw help menu
-function ShowHelp()
-	if (!IsValid(PB_HELPMENU)) then
-		PB_HELPMENU = vgui.Create("pb_popup_help")
-	else
-		PB_HELPMENU:Remove()
+if (PB.Config.EnableHelpMenu) then
+	// Function - Draw help menu
+	function ShowHelp()
+		if (!IsValid(PB_HELPMENU)) then
+			PB_HELPMENU = vgui.Create("pb_popup_help")
+		else
+			PB_HELPMENU:Remove()
+		end
 	end
+
+	// Hook - Handles F1
+	hook.Add("PlayerButtonDown", "PB.HelpMenu", function( ply, button )
+		// Prevent unintended closing when spamming button
+		ply.HelpCooldown = ply.HelpCooldown or 0
+
+		// F1 by default
+		if (IsValid(ply) and button == 92 and ply.HelpCooldown <= CurTime()) then
+			ply.HelpCooldown = CurTime() + 0.5
+			ShowHelp()
+		end
+	end)
 end
-
-// Hook - Handles F1
-hook.Add("PlayerButtonDown", "PB.HelpMenu", function( ply, button )
-	// Prevent unintended closing when spamming button
-	ply.HelpCooldown = ply.HelpCooldown or 0
-
-	// F1 by default
-	if (IsValid(ply) and button == 92 and ply.HelpCooldown <= CurTime()) then
-		ply.HelpCooldown = CurTime() + 0.5
-		ShowHelp()
-	end
-end)
 
 // Hook - Handle round start
 hook.Add("OnRoundStart", "RoundStartUI", function(ply)

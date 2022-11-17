@@ -56,6 +56,12 @@ PB.Config.BigMaps = {
     ["ttt_terrortown"] = true
 }
 
+// Should we enable gamemode help center? (F1)
+PB.Config.EnableHelpMenu = true
+
+// Should we use shipped in UI?
+PB.Config.EnableGamemodeUi = true
+
 // Function to run when we reach end of the map / round limit
 PB.Config.EndMapFunction = function()
 
