@@ -1,0 +1,31 @@
+"pedobear"
+{
+	"base"		"fretta13"
+	"title"		"Pedobear"
+	"maps"		"^gm_|^gmod_|^phys_|^ph_|^ttt_|^md_|^mu_|^hs_|^zs_"
+	"menusystem"	"1"
+	
+	//Fretta needs this. Don't ask me why. I don't know.
+	"author_name"	"dotCore"
+	"author_email"	""
+	"author_url"	""
+	"description"	"Pb"
+
+	"fretta_maps"
+	{
+		"1"			"gm_"
+		"2"			"gmod_"
+		"3"			"phys_"
+		"4"         "ph_"
+		"5"         "ttt_"
+		"6"         "md_"
+		"7"         "mu_"
+		"8"         "hs_"
+		"9"         "zs_"
+	}
+	
+	"settings"
+	{
+		// Empty. You aren't going to play this singleplayer, right?
+	}
+}
