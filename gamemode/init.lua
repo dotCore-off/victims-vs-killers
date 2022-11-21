@@ -32,6 +32,9 @@ elseif (PB.Config.SlidingEnabled) then
 	AddCSLuaFile("sh_sliding.lua")
 elseif (PB.Config.EnableHelpMenu) then
 	resource.AddWorkshop("2551039439")
+elseif (PB.Config.MapvoteEnabled) then
+	include("librairies/sh_mapvote.lua")
+	AddCSLuaFile("librairies/sh_mapvote.lua")
 end
 
 // Localize stuff we'll use or use often
