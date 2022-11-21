@@ -64,7 +64,7 @@ PB.Config.EnableGamemodeUi = true
 
 // Function to run when we reach end of the map / round limit
 PB.Config.EndMapFunction = function()
-
+    PB_MapvoteStart()
 end
 
 // List of entity classes to remove on new round
@@ -354,6 +354,36 @@ PB.Config.SpecialContent = {
     ["1510010810"] = "76561198877269660",
     ["1304710505"] = "76561198856553497",
 }
+
+
+/*
+    MAPVOTE CONFIG
+*/
+
+// Which admin mod are you using? - supported: ulx, sam, none (we use this to fetch available maps)
+PB.Config.MapvoteAdminmod = "none"
+
+// Which maps should be blacklist from mapvote?
+PB.Config.MapvoteBlacklisted = { "gm_construct", "gm_flatgrass" }
+
+// Should we enable default mapvote system?
+PB.Config.MapvoteEnabled = true
+
+// How long should last a mapvote?
+PB.Config.MapvoteLength = 20
+
+// How much map should there be in mapvote?
+PB.Config.MapvoteLimit = 20
+
+// Which map prefix should we support?
+PB.Config.MapvotePrefixs = { "ttt", "ph", "gm", "pb", "zs" }
+
+// Which commands should trigger an rtv?
+PB.Config.MapvoteRtvCommands = { "!rtv", "/rtv", "rtv" }
+
+// How much time should players wait before being able to vote?
+PB.Config.MapvoteRtvWait = 120
+
 
 /*
     GAMEPLAY CONFIG
