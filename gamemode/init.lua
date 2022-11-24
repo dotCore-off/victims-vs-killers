@@ -106,7 +106,7 @@ function PickEvents(forced)
 
 		if (luck > v.Rarity * 10) then
 			SetGlobalInt("PB.SpecialRound", k)
-			break
+			return
 		end
 	end
 end
