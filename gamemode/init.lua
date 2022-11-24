@@ -203,12 +203,10 @@ function GM:OnRoundStart(num)
 		net.WriteInt(num, 5)
 	net.Broadcast()
 
-	// We determine the unlock time
 	local unlockTime = math.Clamp(PB.Config.KillerUnlockTime - (CurTime() - GetGlobalFloat("RoundStartTime", 0)), 0, PB.Config.KillerUnlockTime) + 2
 
-	// Create a timer
+	// On timer's ends, broadcast that Killers must be unlocked / released
 	timer.Simple(unlockTime, function()
-		// On timer's ends, broadcast that Killers must be unlocked / released
 		PB.IsKillerReleased = true
 	end)
 end
@@ -227,49 +225,40 @@ end
 
 // Function - Has the round limit been reached ?
 function GM:HasReachedRoundLimit(num)
-	// Check if we reached round limit
+	// Check if we reached round limit & broadcast
 	if (num > PB.Config.MaxRounds) then
-		// Broadcast that we reached it + vote map
 		hook.Run("GamemodeMaxRoundReached")
 		PB.Config.EndMapFunction()
 	end
 
-	// Else, return false
 	return false
 end
 
 // Function - Victims win + reward them
 function GM:RoundTimerEnd()
-	// Test if we're in an ongoing round or not
-	if !GAMEMODE:InRound() then return end
+	if (!GAMEMODE:InRound()) then return end
 
 	// Announce round results
 	GAMEMODE:RoundEndWithResult(-1, "Time's Up ! - Victims Wins")
 
-	// Count the amount of Victims
 	local victims = table.Count(team.GetPlayers(TEAM_VICTIMS))
-
-	// Loop through Victims and for each dead one, decrement above var
 	for k,v in ipairs(team.GetPlayers(TEAM_VICTIMS)) do
-		if (!v:Alive()) then
-			victims = victims - 1
-		end
+		if (v:Alive()) then continue end
+		victims = victims - 1
 	end
 
 	// Reward players based on alive players
 	if (table.Count(player.GetAll()) > 4) then
 		for k,v in ipairs(team.GetPlayers(TEAM_VICTIMS)) do
-			// Only reward if player is still alive at the end of the round
-			if (v:Alive()) then
-				v:GiveMoney(PB.Config.VictimsRewardsWin and PB.Config.VictimsRewardsWin or 0)
-			end
+			if (!v:Alive()) then continue end
+			v:GiveMoney(PB.Config.VictimsRewardsWin and PB.Config.VictimsRewardsWin or 0)
 		end
 	end
 end
 
 // Function - Check who's alive in each teams and if there's only one team remaining
 function GM:CheckPlayerDeathRoundEnd()
-	if !GAMEMODE:InRound() then return end
+	if (!GAMEMODE:InRound()) then return end
 	local getTeams = GAMEMODE:GetTeamAliveCounts()
 
 	if (table.Count(getTeams) == 0) then
@@ -326,7 +315,6 @@ end
 
 // Function - Make sure that spawnpoint is correct
 function GM:IsSpawnpointSuitable(ply, spawnpointent, bMakeSuitable)
-	// Get position
 	local Pos = spawnpointent:GetPos()
 
 	// Overriding default function so people will not get killed on spawn
@@ -335,20 +323,16 @@ function GM:IsSpawnpointSuitable(ply, spawnpointent, bMakeSuitable)
 	// In case player can't play -> ignore
 	if (ply:Team() == TEAM_SPECTATOR or ply:Team() == TEAM_UNASSIGNED) then return true end
 
-	// Will represent the total amount of blockers
 	local Blockers = 0
-
-	// Loop through all found entities
 	for k,v in ipairs(Ents) do
 		if (IsValid(v) and v:GetClass() == "player" and v:Alive()) then
 			Blockers = Blockers + 1
 		end
 	end
 
-	// If something blocks -> spawnpoint isn't suitable & we end
+	// If something blocks -> spawnpoint isn't suitable
 	if (Blockers > 0) then return false end
 
-	// Else, consider it as a good spawnpoint
 	return true
 end
 
